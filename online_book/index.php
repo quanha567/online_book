@@ -10,14 +10,16 @@
   $row = select4LatestBook($conn);
 ?>
       <!-- Example row of columns -->
-      <p class="lead text-center text-muted">Latest books</p>
-      <div class="row">
-        <?php foreach($row as $book) { ?>
-      	<div class="col-md-3">
-      		<a href="book.php?bookisbn=<?php echo $book['book_isbn']; ?>">
-           <img class="img-responsive img-thumbnail" src="./bootstrap/img/<?php echo $book['book_image']; ?>">
+      <h1 class="home-title">Sản Phẩm Bán Chạy</h1>
+      <div class="row-grid">
+        <?php foreach($row as $watch) { ?>
+      		<a href="book.php?bookisbn=<?php echo $watch['book_isbn']; ?>" class="product">
+          <div class="sale">-20%</div>
+           <img class="product-img" src="./bootstrap/img/<?php echo $watch['book_image']; ?>">
+           <h2 class="product-name"><?php echo $watch["book_title"] ?></h2>
+           <p class="product-price"><?php echo number_format($watch["book_price"]) ?></p>
+           <button class="product-btn">Mua Ngay</button>
           </a>
-      	</div>
         <?php } ?>
       </div>
 <?php

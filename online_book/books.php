@@ -5,7 +5,7 @@
   require_once "./functions/database_functions.php";
   $conn = db_connect();
 
-  $query = "SELECT book_isbn, book_image FROM books";
+  $query = "SELECT * FROM books";
   $result = mysqli_query($conn, $query);
   if(!$result){
     echo "Can't retrieve data " . mysqli_error($conn);
@@ -17,20 +17,16 @@
 ?>
   <p class="lead text-center text-muted">Full Catalogs of Books</p>
     <?php for($i = 0; $i < mysqli_num_rows($result); $i++){ ?>
-      <div class="row">
+      <div class="row-grid">
         <?php while($query_row = mysqli_fetch_assoc($result)){ ?>
-          <div class="col-md-3">
-            <a href="book.php?bookisbn=<?php echo $query_row['book_isbn']; ?>">
-              <img class="img-responsive img-thumbnail" src="./bootstrap/img/<?php echo $query_row['book_image']; ?>">
-            </a>
-          </div>
-        <?php
-          $count++;
-          if($count >= 4){
-              $count = 0;
-              break;
-            }
-          } ?> 
+      		<a href="book.php?bookisbn=<?php echo $query_row['book_isbn']; ?>" class="product">
+          <div class="sale">-20%</div>
+           <img class="product-img" src="./bootstrap/img/<?php echo $query_row['book_image']; ?>">
+           <h2 class="product-name"><?php echo $query_row["book_title"] ?></h2>
+           <p class="product-price"><?php echo number_format($query_row["book_price"]) ?></p>
+           <button class="product-btn">Mua Ngay</button>
+          </a>
+        <?php } ?> 
       </div>
 <?php
       }
